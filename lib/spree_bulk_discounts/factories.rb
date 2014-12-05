@@ -1,6 +1,10 @@
 FactoryGirl.define do
-  # Define your Spree extensions Factories within this file to enable applications, and other extensions to use and override them.
-  #
-  # Example adding this to your spec_helper will load these Factories for use:
-  # require 'spree_bulk_discounts/factories'
+
+  factory :bulk_discount, class: Spree::BulkDiscount do
+    name "women (bulk)"
+    label "aerola"
+    discount_method "percent"
+    break_points { {"6" => 0.1, "12" => 0.15, "18" => 0.2} }
+  end
+
 end

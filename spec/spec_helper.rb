@@ -16,6 +16,7 @@ ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 
 require 'rspec/rails'
+require 'rspec/active_model/mocks'
 require 'database_cleaner'
 require 'ffaker'
 
@@ -30,7 +31,10 @@ require 'spree/testing_support/controller_requests'
 require 'spree/testing_support/factories'
 require 'spree/testing_support/url_helpers'
 
-# Requires factories defined in lib/spree_bulk_discounts/factories.rb
+require 'spree/api/testing_support/helpers'
+require 'spree/api/testing_support/setup'
+
+# Requires factories defined in lib/spree_item_designs/factories.rb
 require 'spree_bulk_discounts/factories'
 
 RSpec.configure do |config|
