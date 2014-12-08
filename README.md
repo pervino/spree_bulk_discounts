@@ -1,7 +1,7 @@
 SpreeBulkDiscounts
 ==================
 
-Yo yo yo! This is the custom built Spree Bulk Discounts gem for exclusive use with Personal Wine.
+Yo yo yo!
 
 Changes
 -------
