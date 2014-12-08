@@ -22,12 +22,13 @@ module Spree
       end
     end
 
-    def adjust(item)
+    def adjust(order, item)
       amount = compute_amount(item)
       return if amount == 0
 
       self.adjustments.create!({
                                    adjustable: item,
+                                   eligible: true,
                                    amount: amount,
                                    order_id: item.order_id,
                                    label: label || Spree::BulkDiscount::Config.label,
