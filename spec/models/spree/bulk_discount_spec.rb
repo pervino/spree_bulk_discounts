@@ -21,7 +21,7 @@ describe Spree::BulkDiscount do
 
   context "bulk discount methods" do
 
-    let!(:discount) { create(:bulk_discount) }
+    let!(:discount) { create(:bulk_discount, :break_points => {"18" => 0.2, "6" => 0.1, "12" => 0.15}) }
     let!(:line_item) { create(:line_item, quantity: 13) }
 
     before do
@@ -46,28 +46,4 @@ describe Spree::BulkDiscount do
     end
 
   end
-
-  # context "label customization" do
-  #
-  #   let(:product) { create(:product, bulk_discount: create(:bulk_discount) ) }
-  #   let(:variant) { create(:variant, product: product) }
-  #
-  #   it "does not trigger the bulk discount for low quantity" do
-  #     line_item = subject.add(variant, 1)
-  #     # 19.99 119.994
-  #     expect(line_item.total).to eq(19.99)
-  #   end
-  #
-  #   it "triggers the bulk discount for min quantity" do
-  #     line_item = subject.add(variant, 6)
-  #     # 0.9 * (19.99 * 6)
-  #     expect(line_item.total).to eq(107.946)
-  #   end
-  #
-  #   it "triggers the bulk discount for next quantity" do
-  #     line_item = subject.add(variant, 12)
-  #     # 0.85 * (19.99 * 12)
-  #     expect(line_item.total).to eq(203.898)
-  #   end
-  # end
 end

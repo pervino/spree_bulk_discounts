@@ -42,7 +42,7 @@ module Spree
 
 
     def getRate(quantity)
-      quantity_key = break_points.keys.take_while { |k| Integer(k) <= quantity }.last
+      quantity_key = break_points.keys.sort {|a, b| Integer(a) <=> Integer(b) }.take_while { |k| Integer(k) <= quantity }.last
       BigDecimal(break_points[quantity_key] || 0)
     end
 
@@ -68,8 +68,8 @@ module Spree
     # custom validator
     def enforce_breakpoints
       break_points.map do |quantity, rate|
-        if BigDecimal(rate) > Spree::BulkDiscount::Config.max_precent_rate
-          errors.add(:break_points, "Rate cannot be more than #{Spree::BulkDiscount::Config.max_precent_rate * 100}%")
+        if BigDecimal(rate) > Spree::BulkDiscount::Config.max_percent_rate
+          errors.add(:break_points, "Rate cannot be more than #{Spree::BulkDiscount::Config.max_percent_rate * 100}%")
         end
         if Integer(quantity) < Spree::BulkDiscount::Config.min_quantity
           errors.add(:break_points, "Quantity must be at least #{Spree::BulkDiscount::Config.min_quantity}")
