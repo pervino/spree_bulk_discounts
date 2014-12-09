@@ -8,11 +8,11 @@ require 'spec_helper'
 describe Spree::BulkDiscount do
 
   it "is invalid with 0 quantity" do
-    FactoryGirl.build(:bulk_discount, :break_points => { "0" => 1}).should_not be_valid
+    FactoryGirl.build(:bulk_discount, :break_points => { "0" => BigDecimal('1')}).should_not be_valid
   end
 
   it "is invalid with a rate over 90%" do
-    FactoryGirl.build(:bulk_discount, :break_points => { "1" => 0.91}).should_not be_valid
+    FactoryGirl.build(:bulk_discount, :break_points => { "1" => BigDecimal('0.91')}).should_not be_valid
   end
 
   it "is invalid with no breakpoints" do
@@ -21,7 +21,7 @@ describe Spree::BulkDiscount do
 
   context "bulk discount methods" do
 
-    let!(:discount) { create(:bulk_discount, :break_points => {"18" => 0.2, "6" => 0.1, "12" => 0.15}) }
+    let!(:discount) { create(:bulk_discount, :break_points => {"18" => BigDecimal('0.2'), "6" => BigDecimal('0.1'), "12" => BigDecimal('0.15')}) }
     let!(:line_item) { create(:line_item, quantity: 13) }
 
     before do

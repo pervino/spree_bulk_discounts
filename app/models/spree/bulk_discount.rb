@@ -3,6 +3,7 @@
 module Spree
   class BulkDiscount < ActiveRecord::Base
     acts_as_paranoid
+    serialize :break_points, Hash
 
     has_many :adjustments, as: :source, dependent: :destroy
     has_many :products
@@ -10,8 +11,7 @@ module Spree
     validates_presence_of :break_points
     validate :enforce_breakpoints, on: [:create, :update]
 
-    store_accessor :break_points
-    # before_save :set_break_points
+    before_save :set_break_points
 
     def self.adjust(order, items)
       items.each do |item|
@@ -57,13 +57,13 @@ module Spree
     end
 
     # could use some validation here just if we wanted to be extra careful
-    # def set_break_points
-    #   parsed_break_points = {}
-    #   break_points.map do |quantity, rate|
-    #     parsed_break_points[Integer(quantity)] = BigDecimal(rate)
-    #   end
-    #   self.break_points=parsed_break_points
-    # end
+    def set_break_points
+      parsed_break_points = {}
+      break_points.map do |quantity, rate|
+        parsed_break_points[Integer(quantity)] = BigDecimal(rate)
+      end
+      self.break_points = parsed_break_points
+    end
 
     # custom validator
     def enforce_breakpoints

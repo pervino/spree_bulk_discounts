@@ -4,7 +4,7 @@ FactoryGirl.define do
     name "tacos (bulk)"
     label "nachos"
     discount_method "percent"
-    break_points { {"6" => 0.1, "12" => 0.15, "18" => 0.2} }
+    break_points { {"6" => BigDecimal('0.1'), "12" => BigDecimal('0.15'), "18" => BigDecimal('0.2')} }
   end
 
 end
