@@ -6,9 +6,6 @@ Yo yo yo!
 Changes
 -------
 * Spree::BulkDiscountConfiguration - Contains defaults to override on initialization.
-* Two options for break point values, percent off and flat amount off (TODO validation on flat off)
-* no more janky item adjustments override. Redone using Spree's recommend override pattern and hooks into a callback.
-* Uses hstore for breakpoints in BulkDiscount because, why not.
 
 Installation
 ------------

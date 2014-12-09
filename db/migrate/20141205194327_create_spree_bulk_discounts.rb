@@ -2,7 +2,6 @@ class CreateSpreeBulkDiscounts < ActiveRecord::Migration
   def change
     create_table :spree_bulk_discounts do |t|
       t.string :name
-      t.string :label
       t.string :discount_method
       t.text :break_points
 

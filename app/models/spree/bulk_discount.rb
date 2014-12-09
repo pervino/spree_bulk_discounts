@@ -8,7 +8,7 @@ module Spree
     has_many :adjustments, as: :source, dependent: :destroy
     has_many :products
 
-    validates_presence_of :break_points
+    validates_presence_of :break_points, :name
     validate :enforce_breakpoints, on: [:create, :update]
 
     before_save :set_break_points
@@ -31,13 +31,13 @@ module Spree
                                    eligible: true,
                                    amount: amount,
                                    order_id: item.order_id,
-                                   label: label || Spree::BulkDiscount::Config.label,
+                                   label: name,
                                    included: false
                                })
     end
 
     def compute_amount(item)
-      send("#{discount_method}_compute", item)
+      -getRate(item.quantity) * item.amount
     end
 
 
@@ -47,14 +47,6 @@ module Spree
     end
 
     private
-
-    def percent_compute(item)
-      -getRate(item.quantity) * item.amount
-    end
-
-    def flat_compute(item)
-      -getRate(item.quantity)
-    end
 
     # could use some validation here just if we wanted to be extra careful
     def set_break_points

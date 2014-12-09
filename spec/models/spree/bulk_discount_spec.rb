@@ -19,6 +19,10 @@ describe Spree::BulkDiscount do
     FactoryGirl.build(:bulk_discount, :break_points => {}).should_not be_valid
   end
 
+  it "is invalid with no name" do
+    FactoryGirl.build(:bulk_discount, name: nil).should_not be_valid
+  end
+
   context "bulk discount methods" do
 
     let!(:discount) { create(:bulk_discount, :break_points => {"18" => BigDecimal('0.2'), "6" => BigDecimal('0.1'), "12" => BigDecimal('0.15')}) }
@@ -37,12 +41,6 @@ describe Spree::BulkDiscount do
 
     it "should compute the correct percentage rate" do
       expect(discount.compute_amount(line_item)).to eq(-19.5)
-    end
-
-    it "should compute the correct flat rate" do
-      discount.discount_method = "flat"
-      discount.break_points = {"6" => 5, "12" => 20, "18" => 40}
-      expect(discount.compute_amount(line_item)).to eq(-20)
     end
 
   end
