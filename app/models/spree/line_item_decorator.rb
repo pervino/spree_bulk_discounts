@@ -1,10 +1,6 @@
 
 module LineItemExtensions
 
-  def discounted_amount
-    bulk_discount_total + super
-  end
-
   def update_adjustments
     if quantity_changed?
       update_bulk_discount
@@ -25,6 +21,11 @@ module Spree
   LineItem.class_eval do
 
     after_create :update_bulk_discount
+
+
+    def discounted_amount
+      amount + promo_total + bulk_discount_total
+    end
 
     prepend LineItemExtensions
   end
