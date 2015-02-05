@@ -1,5 +1,6 @@
 Spree::ItemAdjustments.class_eval do
 
+  # TODO refactor the bulk discount decision into choose_best_promotion_adjustment
   def update_adjustments
     bulk_discount_total = 0
     bulk_discount_total = adjustments.bulk_discount.reload.map(&:update!).compact.sum
