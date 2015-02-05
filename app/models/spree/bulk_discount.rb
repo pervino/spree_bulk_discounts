@@ -13,16 +13,14 @@ module Spree
 
     before_save :set_break_points
 
-    def self.adjust(order, items)
-      items.each do |item|
-        next unless item.instance_of?(Spree::LineItem) && item.variant.product.bulk_discount
+    def self.adjust(item)
+      return unless item.instance_of?(Spree::LineItem) && item.variant.product.bulk_discount
 
-        item.adjustments.bulk_discount.delete_all
-        item.variant.product.bulk_discount.adjust(order, item)
-      end
+      item.adjustments.bulk_discount.delete_all
+      item.variant.product.bulk_discount.adjust(item)
     end
 
-    def adjust(order, item)
+    def adjust(item)
       amount = compute_amount(item)
       return if amount == 0
 
