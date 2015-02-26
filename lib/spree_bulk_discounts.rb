@@ -1,9 +1,9 @@
 require 'spree_core'
 
 module Spree
-  module BulkDiscount
+  module BulkDiscounts
     def self.config(&block)
-      yield(Spree::BulkDiscount::Config)
+      yield(Spree::BulkDiscounts::Config)
     end
   end
 end

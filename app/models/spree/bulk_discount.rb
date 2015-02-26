@@ -58,11 +58,11 @@ module Spree
     # custom validator
     def enforce_breakpoints
       break_points.map do |quantity, rate|
-        if BigDecimal(rate) > Spree::BulkDiscount::Config.max_percent_rate
-          errors.add(:break_points, "Rate cannot be more than #{Spree::BulkDiscount::Config.max_percent_rate * 100}%")
+        if BigDecimal(rate) > Spree::BulkDiscounts::Config.max_percent_rate
+          errors.add(:break_points, "Rate cannot be more than #{Spree::BulkDiscounts::Config.max_percent_rate * 100}%")
         end
-        if Integer(quantity) < Spree::BulkDiscount::Config.min_quantity
-          errors.add(:break_points, "Quantity must be at least #{Spree::BulkDiscount::Config.min_quantity}")
+        if Integer(quantity) < Spree::BulkDiscounts::Config.min_quantity
+          errors.add(:break_points, "Quantity must be at least #{Spree::BulkDiscounts::Config.min_quantity}")
         end
       end
     end

@@ -12,7 +12,7 @@ module SpreeBulkDiscounts
     config.autoload_paths += %W(#{config.root}/lib)
 
     initializer "spree.bulk_discount.environment", :before => :load_config_initializers do |app|
-      Spree::BulkDiscount::Config = Spree::BulkDiscountConfiguration.new
+      Spree::BulkDiscounts::Config = Spree::BulkDiscountConfiguration.new
     end
 
     def self.activate
