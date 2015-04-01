@@ -2,8 +2,8 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_bulk_discounts'
-  s.version     = '2.4.2.rc1'
-  s.summary     = 'Provides bulk discount options to products '
+  s.version     = '2.4.6'
+  s.summary     = 'Provides bulk discount options to products'
   s.description = 'SOMETHING SOMETHING SOMETHING'
   s.required_ruby_version = '>= 1.9.3'
 

@@ -12,6 +12,8 @@ module Spree
     validate :enforce_breakpoints, on: [:create, :update]
 
     before_save :set_break_points
+    before_update :touch_products
+    before_destroy :touch_products
 
     def self.adjust(item)
       return unless item.instance_of?(Spree::LineItem) && item.variant.product.bulk_discount
@@ -65,6 +67,10 @@ module Spree
           errors.add(:break_points, "Quantity must be at least #{Spree::BulkDiscounts::Config.min_quantity}")
         end
       end
+    end
+
+    def touch_products
+      products.each(&:touch)
     end
   end
 end
