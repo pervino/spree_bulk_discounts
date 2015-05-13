@@ -1,4 +1,4 @@
-Deface::Override.new(virtual_path: "spree/admin/shared/_configuration_menu",
+Deface::Override.new(virtual_path: "spree/admin/shared/sub_menu/_configuration",
                      name: "add_bulk_discount_settings_link",
                      insert_bottom: "[data-hook='admin_configurations_sidebar_menu'], #admin_configurations_sidebar_menu[data-hook]",
                      text: "<%= configurations_sidebar_menu_item 'Bulk Discounts', admin_bulk_discounts_path %>")
