@@ -2,10 +2,11 @@
 
 module Spree
   class BulkDiscount < ActiveRecord::Base
+    include Spree::AdjustmentSource
+
     acts_as_paranoid
     serialize :break_points, Hash
 
-    has_many :adjustments, as: :source, dependent: :destroy
     has_many :products
 
     validates_presence_of :break_points, :name
@@ -16,24 +17,13 @@ module Spree
     before_destroy :touch_products
 
     def self.adjust(item)
-      return unless item.instance_of?(Spree::LineItem) && item.variant.product.bulk_discount
+      return unless item.instance_of?(Spree::LineItem) && item.variant.product.bulk_discount.present?
 
-      item.adjustments.bulk_discount.delete_all
-      item.variant.product.bulk_discount.adjust(item)
+      item.variant.product.bulk_discount.adjust(item.order, item)
     end
 
-    def adjust(item)
-      amount = compute_amount(item)
-      return if amount == 0
-
-      self.adjustments.create!({
-                                   adjustable: item,
-                                   eligible: true,
-                                   amount: amount,
-                                   order_id: item.order_id,
-                                   label: name,
-                                   included: false
-                               })
+    def adjust(order, item)
+      create_unique_adjustment(order, item)
     end
 
     def compute_amount(item)
@@ -47,6 +37,10 @@ module Spree
     end
 
     private
+
+    def label(amount = nil)
+      "Bulk Discount"
+    end
 
     # could use some validation here just if we wanted to be extra careful
     def set_break_points

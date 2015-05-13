@@ -14,12 +14,12 @@ describe Spree::OrderContents, :type => :model do
 
     it 'should trigger the first bulk discount pricing' do
       line_item = subject.add(variant, 10)
-      expect(line_item.total.to_f).to eq(179.91)
+      expect(line_item.total.round(2)).to eq(179.91)
     end
 
     it 'should trigger the second bulk discount pricing' do
       line_item = subject.add(variant, 13)
-      expect(line_item.total.to_f).to eq(220.8895)
+      expect(line_item.total.round(2)).to eq(220.89)
     end
 
     it 'should trigger the third bulk discount pricing' do
