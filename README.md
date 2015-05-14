@@ -1,9 +1,11 @@
 SpreeBulkDiscounts
 ==================
 
-Bulk Discounts is an extension to Spree (a complete open source commerce solution for Ruby on Rails) that uses predefined breakpoints to determine a discount to apply to a product. For instance, you could offer a 10% discount discount for quantities above 10, and a 20% discount for quantites above 100. By default, the bulk discount will compete with promo adjustments on a line item, with the greater one being applied.
+Bulk Discounts is an extension to Spree (a complete open source commerce solution for Ruby on Rails) that allows for discounts to be applied to line items based on quantity.
 
-Multiple Bulk Discounts can be setup and assigned to multiple products.
+Define a Bulk Discount with a map of breakpoints and rates, and then assign this Bulk Discount to any number of products. For instance, you could offer a 10% discount for quantities over 10 and a 20% discount for quantites of 20 by creating a bulk discount with breakpoints 10 => .1 and 20 => .2.
+ 
+By default, the bulk discount will compete with any other promo adjustments on a line item, with the best one being applied.
 
 
 Changes
