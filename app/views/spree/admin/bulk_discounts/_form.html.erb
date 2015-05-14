@@ -1,33 +1,33 @@
-<div data-hook="admin_bulk_discount_form_fields">
-  <div class="row">
-    <fieldset data-hook="bulk_discount" class="col-md-6">
-      <legend align="center">General</legend>
+<div data-hook="admin_bulk_discount_form_fields" class="row">
+  <div class="col-md-4">
+    <%= f.label :name, Spree.t(:name) %>
+    <%= f.text_field :name, :class => 'form-control' %>
+  </div>
+</div>
 
-      <div class="col-md-12">
-        <div data-hook="name" class="form-group">
-          <%= f.label :name, Spree.t(:name) %>
-          <%= f.text_field :name, :class => 'form-control' %>
-        </div>
-      </div>
-    </fieldset>
+<div data-hook="admin_bulk_discount_break_points" class="row">
+  <div class="panel panel-default categories">
+    <div class="panel-heading">
+      <h1 class="panel-title">
+        Break Points
+      </h1>
+    </div>
 
-    <div class="clearfix"></div>
-    <fieldset data-hook="bulk_discount_break_points" class="col-md-6">
-      <div class="col-md-12">
-        <table id="bp-table" class="table">
-          <colgroup>
-            <col style="width: 42%">
-            <col style="width: 42%">
-            <col style="width: 16%">
-          </colgroup>
-          <thead>
+    <div class="panel-body">
+      <table id="break-point-table" class="table">
+        <colgroup>
+          <col style="width: 42%">
+          <col style="width: 42%">
+          <col style="width: 16%">
+        </colgroup>
+        <thead>
           <tr>
             <th>Quantity</th>
             <th>Discount</th>
             <th class="actions"></th>
           </tr>
-          </thead>
-          <tbody id="break-points">
+        </thead>
+        <tbody id="break-points">
 
           <% if f.object.break_points && f.object.break_points.any? %>
               <% f.object.break_points.sort.each do |quantity, rate| %>
@@ -45,9 +45,9 @@
                   </tr>
               <% end %>
           <% end %>
-          </tbody>
+        </tbody>
 
-          <tfoot>
+        <tfoot>
           <tr>
             <td>
               <input class="form-control" id="new-break-point-quantity" type="number" placeholder="quantity"/>
@@ -59,13 +59,10 @@
               <a id="add-new-breakpoint" class="fa fa-plus icon_lick with-tip no-text" data-action="add" href="#"></a>
             </td>
           </tr>
-          </tfoot>
-        </table>
-      </div>
-    </fieldset>
+        </tfoot>
+      </table>
+    </div>
   </div>
-
-  <div class="clear"></div>
 </div>
 
 <script>
@@ -82,7 +79,7 @@
         $('#break-points').append(tr);
     }
 
-    $(document).ready(function (){
+    $(document).ready(function () {
         $("#add-new-breakpoint").on('click', function (e) {
             e.preventDefault();
 
@@ -97,7 +94,7 @@
             CreateBreakPoint(quantity, rate);
         });
 
-        $('#bp-table').on('click', '.remove-breakpoint', function () {
+        $('#break-point-table').on('click', '.remove-breakpoint', function () {
             $(this).closest('tr').remove();
         });
     });
