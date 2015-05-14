@@ -16,10 +16,17 @@ module Spree
     before_update :touch_products
     before_destroy :touch_products
 
-    def self.adjust(item)
-      return unless item.instance_of?(Spree::LineItem) && item.variant.product.bulk_discount.present?
 
-      item.variant.product.bulk_discount.adjust(item.order, item)
+    # Deletes all bulk discount adjustments, then applies all applicable
+    # discounts to relevant items
+    def self.adjust(order, items)
+      # using destroy_all to ensure adjustment destroy callback fires.
+      Spree::Adjustment.where(adjustable: items).bulk_discount.destroy_all
+
+      relevant_items = items.select { |item| item.variant.product.bulk_discount.present? }
+      relevant_items.each do |item|
+        item.variant.product.bulk_discount.adjust(order, item)
+      end
     end
 
     def adjust(order, item)
@@ -30,18 +37,19 @@ module Spree
       -getRate(item.quantity) * item.amount
     end
 
-
     def getRate(quantity)
-      quantity_key = break_points.keys.sort {|a, b| Integer(a) <=> Integer(b) }.take_while { |k| Integer(k) <= quantity }.last
+      quantity_key = break_points.keys.sort { |a, b| Integer(a) <=> Integer(b) }.take_while { |k| Integer(k) <= quantity }.last
       BigDecimal(break_points[quantity_key] || 0)
     end
 
     private
 
+    # TODO put the discount percentage in the label
     def label(amount = nil)
       "Bulk Discount"
     end
 
+    # todo should these be moved to the controller?
     # could use some validation here just if we wanted to be extra careful
     def set_break_points
       parsed_break_points = {}
