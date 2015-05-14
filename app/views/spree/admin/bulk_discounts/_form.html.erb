@@ -28,7 +28,6 @@
           </tr>
         </thead>
         <tbody id="break-points">
-
           <% if f.object.break_points && f.object.break_points.any? %>
               <% f.object.break_points.sort.each do |quantity, rate| %>
                   <tr>
@@ -38,8 +37,10 @@
                     <td>
                       <%= rate %>
                     </td>
-                    <td class="actions">
-                      <a class="fa fa-trash no-text with-tip remove-breakpoint" data-action="delete"></a>
+                    <td class="actions actions-1 text-right">
+                      <a class="btn btn-danger btn-sm icon-link with-tip action-delete no-text fa-trash no-text" data-remove-breakpoint>
+                        <span class="icon icon-delete"></span>
+                      </a>
                       <input type="hidden" name="bulk_discount[break_points][<%= quantity %>]" value="<%= rate %>">
                     </td>
                   </tr>
@@ -50,13 +51,15 @@
         <tfoot>
           <tr>
             <td>
-              <input class="form-control" id="new-break-point-quantity" type="number" placeholder="quantity"/>
+              <input class="form-control input-sm" id="new-break-point-quantity" type="number" placeholder="quantity"/>
             </td>
             <td>
-              <input class="form-control" id="new-break-point-rate" type="text" placeholder="0.05"/>
+              <input class="form-control input-sm" id="new-break-point-rate" type="text" placeholder="0.05"/>
             </td>
-            <td class="actions">
-              <a id="add-new-breakpoint" class="fa fa-plus icon_lick with-tip no-text" data-action="add" href="#"></a>
+            <td class="actions action-1 text-right">
+              <a class="btn btn-success btn-sm icon-link with-tip no-text fa-add no-text" data-add-breakpoint>
+                <span class="icon icon-plus"></span>
+              </a>
             </td>
           </tr>
         </tfoot>
@@ -80,7 +83,7 @@
     }
 
     $(document).ready(function () {
-        $("#add-new-breakpoint").on('click', function (e) {
+        $("[data-add-breakpoint]").on('click', function (e) {
             e.preventDefault();
 
             var quantity = $('#new-break-point-quantity').val(), rate = $('#new-break-point-rate').val();
@@ -94,7 +97,7 @@
             CreateBreakPoint(quantity, rate);
         });
 
-        $('#break-point-table').on('click', '.remove-breakpoint', function () {
+        $('#break-point-table').on('click', '[data-remove-breakpoint]', function () {
             $(this).closest('tr').remove();
         });
     });

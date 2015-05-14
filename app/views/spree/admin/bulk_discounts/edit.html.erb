@@ -2,10 +2,6 @@
     Editing Bulk Discount
 <% end %>
 
-<% content_for :page_actions do %>
-    <%= button_link_to "New Breakpoint", '#', {class: 'btn-success', icon: 'add', id: 'add-new-breakpoint'} %>
-<% end if can?(:update, Spree::BulkDiscount) %>
-
 <%= render :partial => 'spree/shared/error_messages', :locals => {:target => @bulk_discount} %>
 
 <%= form_for [:admin, @bulk_discount] do |f| %>
