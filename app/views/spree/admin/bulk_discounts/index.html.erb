@@ -22,7 +22,7 @@
         <% @bulk_discounts.each do |bulk_discount| %>
             <tr id="<%= spree_dom_id bulk_discount %>" data-hook="rate_row" class="<%= cycle('odd', 'even') %>">
               <td class="align-center"><%= bulk_discount.name %></td>
-              <td class="actions">
+              <td class="actions actions-2">
                 <%= link_to_edit bulk_discount, :no_text => true %>
                 <%= link_to_delete bulk_discount, :no_text => true %>
               </td>
