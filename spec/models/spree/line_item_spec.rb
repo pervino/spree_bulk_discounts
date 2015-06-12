@@ -1,7 +1,3 @@
-# SPREE 3-0-stable
-
-# Maybe unneeded
-
 require 'spec_helper'
 
 describe Spree::LineItem, :type => :model do
