@@ -44,7 +44,7 @@ describe Spree::BulkDiscount do
   end
 
   describe ".adjust" do
-    let(:order) { stub_model(Spree::Order) }
+    let(:order) { create(:order) }
     let!(:bulk_discount) { create(:bulk_discount, :break_points => {"6" => BigDecimal('0.05'), "12" => BigDecimal('0.1'), "48" => BigDecimal('0.2')}) }
 
     context "with line items" do
