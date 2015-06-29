@@ -16,14 +16,12 @@ module Spree
     before_update :touch_products
     before_destroy :touch_products
 
-
     # Deletes all bulk discount adjustments, then applies all applicable
     # discounts to relevant items
     def self.adjust(order, items)
       # using destroy_all to ensure adjustment destroy callback fires.
       Spree::Adjustment.where(adjustable: items).bulk_discount.destroy_all
-
-      relevant_items = items.select { |item| item.variant.product.bulk_discount.present? }
+      relevant_items = items.select { |item| item.product.bulk_discount.present? }
       relevant_items.each do |item|
         item.variant.product.bulk_discount.adjust(order, item)
       end
@@ -34,7 +32,7 @@ module Spree
     end
 
     def compute_amount(item)
-      -getRate(item.quantity) * item.amount
+      -getRate(item.reload.quantity) * item.amount
     end
 
     def getRate(quantity)
