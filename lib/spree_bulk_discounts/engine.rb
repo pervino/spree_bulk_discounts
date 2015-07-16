@@ -27,6 +27,14 @@ module SpreeBulkDiscounts
           Rails.configuration.cache_classes ? require(c) : load(c)
         end
       end
+
+      if Spree::Order.table_exists?
+        # persist the totals
+        Spree::Order.register_update_hook(:persist_bulk_discount_totals)
+      end
+
+      # Attach the bulk discount source
+      Spree::Adjustment.competing_promos_source_types << 'Spree::BulkDiscount'
     end
 
     config.to_prepare &method(:activate).to_proc
