@@ -17,9 +17,8 @@ module Spree
         end
 
         def update_totals(bulk_discount_total)
-          # we DO NOT update the adjustment_total since bulk_discount is registered as a competing_promo
-          # this is also why we do not register this as a price modifier hook
           @totals[:bulk_discount_total] = bulk_discount_total
+          @totals[:taxable_adjustment_total] += bulk_discount_total
         end
       end
     end
