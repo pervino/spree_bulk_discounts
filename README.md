@@ -45,4 +45,4 @@ Simply add this require statement to your spec_helper:
 require 'spree_bulk_discounts/factories'
 ```
 
-Copyright (c) 2014 Pervino, released under the New BSD License
+Copyright (c) 2015 Pervino, released under the New BSD License
