@@ -1,11 +1,11 @@
 SpreeBulkDiscounts
 ==================
 
-Bulk Discounts is an extension to Spree (a complete open source commerce solution for Ruby on Rails) that allows for discounts to be applied to line items based on quantity.
+Bulk Discounts is an extension to Spree (a complete open source commerce solution for Ruby on Rails) that allows for discounts to be applied to line items based on quantity. 
 
 Define a Bulk Discount with a map of breakpoints and rates, and then assign this Bulk Discount to any number of products. For instance, you could offer a 10% discount for quantities over 10 and a 20% discount for quantites of 20 by creating a bulk discount with breakpoints 10 => .1 and 20 => .2.
  
-By default, the bulk discount will compete with any other promo adjustments on a line item, with the best one being applied.
+By default, the bulk discount will compete with any other promo adjustments on a line item, with the best one being applied. When a specific quantity is met an adjustment is created on a line_item to discount the line_item by the specified percent.
 
 
 Changes
@@ -45,4 +45,4 @@ Simply add this require statement to your spec_helper:
 require 'spree_bulk_discounts/factories'
 ```
 
-Copyright (c) 2014 [name of extension creator], released under the New BSD License
+Copyright (c) 2014 Pervino, released under the New BSD License
