@@ -3,6 +3,8 @@ module Spree
     module Adjuster
       class BulkDiscount < Spree::Adjustable::Adjuster::Base
         def update
+          return unless adjustable === "Spree::LineItem"
+
           bulk_discount = adjustments.bulk_discount
 
           bulk_discount.each do |adj|
