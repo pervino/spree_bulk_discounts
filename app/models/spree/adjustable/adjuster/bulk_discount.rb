@@ -3,9 +3,11 @@ module Spree
     module Adjuster
       class BulkDiscount < Spree::Adjustable::Adjuster::Base
         def update
-          bulk_discount_total = adjustable.adjustments.bulk_discount.reload.map do |adjustment|
+          adjustable.adjustments.bulk_discount.reload.map do |adjustment|
+            adjustment.update_column("eligible", true)
             adjustment.update!(adjustable)
-          end.compact.sum
+          end
+          bulk_discount_total = adjustable.adjustments.bulk_discount.reload.eligible.sum(:amount)
 
           update_totals(bulk_discount_total)
         end
